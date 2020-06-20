@@ -3,18 +3,18 @@
 #define PIXEL_HPP
 
 /**!<Bibliotecas necesarias*/
-#include "Terminal.hpp"
+#include "..\Terminal\Terminal.hpp"
 #include <iostream>
 
 class Pixel{
 	private:
-		char Pixel;
+		char pixel;
 		int x;
 		int y;
 	public:
-		Pixel(char Pixel);
+		Pixel(char pixel);
 		~Pixel();
-		void setPixel(char Pixel);
+		void setPixel(char pixel);
 		char getPixel();
 };
 

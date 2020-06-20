@@ -8,7 +8,6 @@
 #include <conio.h>
 
 /**
- *
  *@class Terminal
  *@brief Se encarga de todas las funciones que tengan que ver con la terminal.
  */
