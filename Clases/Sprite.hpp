@@ -7,6 +7,14 @@
 #include <fstream>
 #include "Pixel.hpp"
 
+
+/**
+ *@class Clase que carga a los personajes del juego
+ *
+ *Nota: Los sprites deben de guardarse en un archivo .txt en la carpeta Sprites
+ *      Al momento de crearlos solo introducir el nombre del archivo por ejemplo
+ *      prueba.txt al crear el objeto seria Sprite(10,10,"prueba").
+ */
 class Sprite{
 	private:
 		/**!<Tamaño del Sprite en y*/
@@ -35,8 +43,10 @@ class Sprite{
 		 *@param x Tamaño del Sprite en x.
 		 *@param y Tamaño del Sprite en y.
 		 *@param nombre Nombre del archivo que contiene al sprite sin extensión
+		 *@param ignorar Este es el caracter de fondo se borrara al momento de
+		 *cargar el sprite.
 		 */
-		Sprite(int x, int y, std::string nombre);
+		Sprite(int x, int y, std::string nombre, char ignorar = '*');
 
 		/**
 		 *@brief Destructor de la clase

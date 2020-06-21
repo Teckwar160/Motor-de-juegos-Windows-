@@ -1,7 +1,7 @@
 /**!<Bibliotecas necesarias*/
 #include "Sprite.hpp"
 
-Sprite::Sprite(int x, int y, std::string nombre){
+Sprite::Sprite(int x, int y, std::string nombre, char ignorar){
 
 	/*Guardamos datos basicos*/
 	this -> x = x;
@@ -32,6 +32,15 @@ Sprite::Sprite(int x, int y, std::string nombre){
 	}
 
 	sprite.close();
+
+	/*Ahora quitamos el fondo del sprite*/
+	for(int i = 0; i< this -> y; i++){
+		for(int j = 0; j< this -> x; j++){
+			if(this -> sprite[i][j] == ignorar){
+				this -> sprite[i][j] = ' ';
+			}
+		}
+	}
 }
 
 Sprite::~Sprite(){
@@ -44,6 +53,8 @@ Sprite::~Sprite(){
 }
 
 void Sprite::mostrar(){
+
+	/*Muestar el sprite en pantalla*/
 	for(int i = 0; i<this -> y; i++){
 		for(int j = 0; j< this -> x; j++){
 			std::cout << this -> sprite[i][j];

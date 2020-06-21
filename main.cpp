@@ -16,7 +16,7 @@ int main(){
 	std::cout << std::endl;
 #endif
 
-	Sprite prueba(4,2,"prueba");
+	Sprite prueba(10,5,"prueba");
 	prueba.mostrar();
 	std::cout << std::endl;
 	std::cout << std::endl;
