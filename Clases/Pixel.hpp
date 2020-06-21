@@ -23,9 +23,8 @@ class Pixel{
 	public:
 		/**
 		 *@brief Método cosntructor de Pixel.
-		 *@param pixel Caracter del pixel.
 		 */
-		Pixel(char pixel);
+		Pixel();
 
 		/**
 		 *@brief Método destructor del pixel.

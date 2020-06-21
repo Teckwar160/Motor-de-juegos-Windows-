@@ -1,26 +1,33 @@
 #include <iostream>
 #include <stdlib.h>
-//#include "Terminal\Terminal.hpp"
+#include "Terminal\Terminal.hpp"
 #include "Clases\Sprite.hpp"
+#include <windows.h>
+#include <conio.h>
+
 int main(){
 
 	/*Main de pruebas*/
+	Terminal t(80,20,'-','|','Q');
+	Sprite jugador(3,3,2,2,"prueba",false);
+	bool salida = true;
+	t.pintarLimites();
 
-#if 0
-	Terminal prueba;
 
-	prueba.pintarLimites(30,10,9,9,'-','|');
+	while(salida){
 
-	std::cout << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;
-#endif
+	t.ocultarCursor();
+		if(kbhit()){
+			
+			char tecla = getch();
 
-	Sprite prueba(10,5,"prueba");
-	prueba.mostrar();
-	std::cout << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;	
-	system("Pause");
+			jugador.mover(tecla,&t);
+
+			if(tecla == 'c'){
+				salida = false;
+			}
+		}
+		jugador.mostrar(&t);
+	}
 	return 0;
 }

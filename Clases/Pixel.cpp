@@ -1,8 +1,8 @@
 #include "Pixel.hpp"
 
 
-Pixel::Pixel(char pixel){
-	this -> pixel = pixel;
+Pixel::Pixel(){
+	/*Nada por el momento*/
 }
 
 Pixel::~Pixel(){
