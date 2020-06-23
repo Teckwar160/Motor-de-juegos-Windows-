@@ -195,6 +195,18 @@ void Sprite::disparar(Terminal *tablero, char direccion, char pDisparo){
 			if(this -> sprite[i][j].getPixel() == pDisparo){
 
 				switch(direccion){
+					case ARRIBA:
+						x = this -> sprite[i][j].getX();
+						y = this -> sprite[i][j].getY()-1;
+						break;
+					case IZQUIERDA:
+						x = this -> sprite[i][j].getX() -1;
+						y = this -> sprite[i][j].getY();
+						break;
+					case ABAJO:
+						x = this -> sprite[i][j].getX();
+						y = this -> sprite[i][j].getY() +1;
+						break;
 					case DERECHA:
 						x = this -> sprite[i][j].getX() +1;
 						y = this -> sprite[i][j].getY();

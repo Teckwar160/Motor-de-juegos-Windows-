@@ -34,7 +34,7 @@ int main(){
 		jugador.mostrar(&t);
 		jugador.moverBala(&t);
 
-		Sleep(40);
+		Sleep(10);
 	}
 	return 0;
 }
