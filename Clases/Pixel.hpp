@@ -3,7 +3,6 @@
 #define PIXEL_HPP
 
 /**!<Bibliotecas necesarias*/
-#include "..\Terminal\Terminal.hpp"
 #include <iostream>
 
 /**

@@ -7,6 +7,9 @@
 #include <fstream>
 #include "Pixel.hpp"
 #include "Controles.hpp"
+#include "..\Terminal\Terminal.hpp"
+#include "DLL.hpp"
+
 
 /**
  *@class Clase que carga a los personajes del juego
@@ -29,6 +32,9 @@ class Sprite : public Controles{
 		/**!<Posición del priemr pixel en x*/
 		int pX;
 
+		/**!<Activa la opcón de disparar*/
+		bool disparo;
+
 		/**!<Activa las flechas del teclado para mover al personaje*/
 		bool flechas;
 
@@ -40,6 +46,12 @@ class Sprite : public Controles{
 
 		/**!<Contenedor del sprite*/
 		Pixel **sprite;
+
+		/**!<Contenedor de las balas (Si es que quiere usar esta opción)*/
+		DLL<Sprite*> *contenedor;
+
+		/**!<Dirección de un objeto en movimiento(Si es que se quiere usar esta opción)*/
+		char direc;
 
 		/**
 		 *@brief Métdodo que se encarga de borrar el rastro del Sprite.
@@ -53,6 +65,11 @@ class Sprite : public Controles{
 		 */
 		bool combrobadorDeLimites(Terminal *tablero);
 
+		/**
+		 * @brief Método que libera la memoria de las balas.
+		 * @param B Bala que se liberara la memoria.
+		 */
+		static void liberaBala(Sprite *B);
 
 	public:
 		/**
@@ -68,7 +85,7 @@ class Sprite : public Controles{
 		 *cargar el sprite.
 		 *@param fondo Este es el caracter de fondo que sustituira a ignorar.
 		 */
-		Sprite(int x, int y, int pX, int pY, std::string nombre,bool flechas = true, char ignorar = '*', char fondo = ' ');
+		Sprite(int x, int y, int pX, int pY, std::string nombre,bool disparo = false,bool flechas = true, char ignorar = '*', char fondo = ' ');
 
 		/**
 		 *@brief Destructor de la clase
@@ -88,6 +105,31 @@ class Sprite : public Controles{
 		*@param tablero Tablero del juego.
 		*/
 		void mover(char Tecla, Terminal *tablero);
+
+		/**
+		 *@brief Método que se encarga de hacer existir a la bala.
+		 *@param tablero Tablero del juego.
+		 *@param direccion Dirección en la cual se movera la bala.
+		 *@param pDisparo Caracter por el cual saldrán las balas.
+		 */
+		void disparar(Terminal*tablero, char direccion, char pDisparo);
+
+		/**
+		 *@brief Método que mueve a las balas.
+		 *@param tablero Tablero del juego.
+		 */
+		void moverBala(Terminal *tablero);
+
+		/**
+		 *@brief Método que se encarga de dar una dirección a los objetos que se muevan solos.
+		 *@param Dirección en la que se moveran lso objetos.
+		 */
+		void setDireccion(char direccion);
+
+		/**
+		 *@brief Método que regresara el sentido en el cual se mueven los objetos.
+		 */
+		char getDireccion();
 
 };
 

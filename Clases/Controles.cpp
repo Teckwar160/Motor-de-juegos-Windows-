@@ -40,3 +40,20 @@ void Controles::movimiento(char Tecla, int *x, int *y, bool flechas){
 		}		
 	}
 }
+
+void Controles::movimientoDeObjetos(int *x, int *y, char direccion){
+	switch(direccion){
+		case ARRIBA:
+			*y-=1;
+			break;
+		case IZQUIERDA:
+			*x-=1;
+			break;
+		case ABAJO:
+			*y+=1;
+			break;
+		case DERECHA:
+			*x+=1;
+			break;
+	}
+}

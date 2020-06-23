@@ -9,7 +9,7 @@ int main(){
 
 	/*Main de pruebas*/
 	Terminal t(50,10,'-','|','Q');
-	Sprite jugador(1,1,2,2,"prueba",false);
+	Sprite jugador(3,3,2,2,"prueba",true);
 	bool salida = true;
 	t.pintarLimites();
 
@@ -26,8 +26,15 @@ int main(){
 			if(tecla == 'c'){
 				salida = false;
 			}
+
+			if(tecla == 'q'){
+				jugador.disparar(&t,DERECHA,'>');
+			}
 		}
 		jugador.mostrar(&t);
+		jugador.moverBala(&t);
+
+		Sleep(40);
 	}
 	return 0;
 }
