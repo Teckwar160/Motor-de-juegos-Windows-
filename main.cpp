@@ -8,10 +8,13 @@
 int main(){
 
 	/*Main de pruebas*/
-	Terminal t(50,10,'-','|','Q');
+	Terminal t(50,10);
 	Sprite jugador(3,3,2,2,"prueba",true);
+	Sprite muro(3,3,10,2,"muro");
 	bool salida = true;
 	t.pintarLimites();
+
+	Sprite arreglo[10];
 
 
 	while(salida){
@@ -32,7 +35,8 @@ int main(){
 			}
 		}
 		jugador.mostrar(&t);
-		jugador.moverBala(&t);
+		muro.mostrar(&t);
+		jugador.moverBala(&t,&muro);
 
 		Sleep(10);
 	}

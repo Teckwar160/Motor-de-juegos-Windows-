@@ -53,6 +53,12 @@ class Sprite : public Controles{
 		/**!<Dirección de un objeto en movimiento(Si es que se quiere usar esta opción)*/
 		char direc;
 
+		/**!<Caracter a ignorar del Sprite*/
+		char ignorar;
+
+		/**!<Caracter de fondo del sprite*/
+		char fondo;
+
 		/**
 		 *@brief Métdodo que se encarga de borrar el rastro del Sprite.
 		 *@param tablero Tablero del jeugo.
@@ -64,6 +70,8 @@ class Sprite : public Controles{
 		 *@param tablero Tablero del juego.
 		 */
 		bool combrobadorDeLimites(Terminal *tablero);
+
+
 
 		/**
 		 * @brief Método que libera la memoria de las balas.
@@ -79,7 +87,8 @@ class Sprite : public Controles{
 		 *@param y Tamaño del Sprite en y.
 		 *@param pX Posición del primer pixel en x.
 		 *@param pY Posición del primer pixel en y.
-		 *@param nombre Nombre del archivo que contiene al sprite sin extensión
+		 *@param nombre Nombre del archivo que contiene al sprite sin extensión.
+		 *@param disparo Si es que el sprite puede disparar.
 		 *@param flechas Activa el movimento por las flechas del teclado.
 		 *@param ignorar Este es el caracter de fondo se borrara al momento de
 		 *cargar el sprite.
@@ -87,6 +96,15 @@ class Sprite : public Controles{
 		 */
 		Sprite(int x, int y, int pX, int pY, std::string nombre,bool disparo = false,bool flechas = true, char ignorar = '*', char fondo = ' ');
 
+		/**
+		 *@brief Contructor vacío para arreglos.
+		 *@param disparo Si es que el sprite puede disparar.
+		 *@param flechas Activa el movimento por las flechas del teclado.
+		 *@param ignorar Este es el caracter de fondo se borrara al momento de
+		 *cargar el sprite.
+		 *@param fondo Este es el caracter de fondo que sustituira a ignorar.
+		 */
+		Sprite(bool disparo = false,bool flechas = true, char ignorar = '*', char fondo = ' ');
 		/**
 		 *@brief Destructor de la clase
 		 */
@@ -117,8 +135,69 @@ class Sprite : public Controles{
 		/**
 		 *@brief Método que mueve a las balas.
 		 *@param tablero Tablero del juego.
+		 *@param otro Sprite que esta en el tablero.
 		 */
-		void moverBala(Terminal *tablero);
+		void moverBala(Terminal *tablero, Sprite *otro);
+
+		/**
+		 *@brief Método que verifica si un sprite choco con otro.
+		 *@param otro Es el otro sprite que se estara analizando.
+		 */
+		bool comprobadorDeColision(Sprite *otro);
+
+		/**
+		 *@brief Métdo que define el tamaño en x del sprite.
+		 *@param x Tamaño en x del sprite.
+		 */
+		void setX(int x);
+
+		/**
+		 *@brief Método que define el tamaño en y del sprite.
+		 *@param y Tamaño en y del sprite.
+		 */
+		void setY(int y);
+
+		/**
+		 *@brief Método que define la posición del sprite en x.
+		 *@param pX Posición en x del sprite.
+		 */
+		void setpX(int pX);
+
+		/**
+		 *@brief Método que define la posición del sprite en y.
+		 *@param pY Posición en y del sprite.
+		 */
+		void setpY(int pY);
+
+		/**
+		 *@brief Método que define el nombre del sprite.
+		 *@param nombre Nombre del sprite.
+		 */
+		void setNombre(std::string nombre);
+
+		/**
+		 *@brief Método que define si el sprite puede disparar.
+		 *@param disparo Si puede disparar o no.
+		 */
+		void setDisparo(bool disparo);
+
+		/**
+		 *@brief Método que define si se usan las flachas o w,a,s,d para mover.
+		 *@param flechas Si se puede usar flachas o no.
+		 */
+		void setFlechas(bool flechas);
+
+		/**
+		 *@brief Método que define el caracter a ignorar en el sprite.
+		 *@param ignorar Caracter a ignorar del sprite.
+		 */
+		void setIgnorar(char ignorar);
+
+		/**
+		 *@brief Método que define el fondo del sprite.
+		 *@param fondo Caracter de fondo del sprite.
+		 */
+		void setFondo(char fondo);
 
 		/**
 		 *@brief Método que se encarga de dar una dirección a los objetos que se muevan solos.
@@ -131,6 +210,20 @@ class Sprite : public Controles{
 		 */
 		char getDireccion();
 
+		/**
+		 *@brief Método que retorna el tamño en x del sprite.
+		 */
+		int getX();
+
+		/**
+		 *@brief Método que retorna en tamño en y del sprite.
+		 */
+		int getY();
+
+		/**
+		 *@brief Método que retorna el sprite del jugador(OJO solo usar dentro de Sprite nunca fuera de el)
+		 */
+		Pixel **getSprite();
 };
 
 #endif 

@@ -37,7 +37,6 @@ bool Sprite::combrobadorDeLimites(Terminal *tablero){
 	return false;
 }
 
-
 /***************************************
  * 	Métodos publicos
  **************************************/
@@ -52,6 +51,8 @@ Sprite::Sprite(int x, int y, int pX, int pY, std::string nombre, bool disparo, b
 	this -> nombre = nombre;
 	this -> disparo = disparo;
 	this -> flechas = flechas;
+	this -> ignorar = ignorar;
+	this -> fondo = fondo;
 	this -> direccion = "Sprites\\"+ nombre + ".txt";
 
 	/*Si se desea que tenga la capacidad de disparar*/
@@ -103,6 +104,13 @@ Sprite::Sprite(int x, int y, int pX, int pY, std::string nombre, bool disparo, b
 			this -> sprite[i][j].setY(pY+i);
 		}
 	}
+}
+
+Sprite::Sprite(bool disparo,bool flechas, char ignorar, char fondo){
+	this -> disparo = disparo;
+	this -> flechas = flechas;
+	this -> ignorar = ignorar;
+	this -> fondo = fondo;
 }
 
 Sprite::~Sprite(){
@@ -174,14 +182,6 @@ void Sprite::mover(char Tecla,Terminal *tablero){
 
 }
 
-void Sprite::setDireccion(char direccion){
-	this -> direc = direccion;
-}
-
-char Sprite::getDireccion(){
-	return this -> direc;
-}
-
 void Sprite::disparar(Terminal *tablero, char direccion, char pDisparo){
 
 	/*Obtener el lugar de disparo*/
@@ -230,7 +230,7 @@ void Sprite::disparar(Terminal *tablero, char direccion, char pDisparo){
 	}
 }
 
-void Sprite::moverBala(Terminal *tablero){
+void Sprite::moverBala(Terminal *tablero, Sprite *otro){
 
 	/*Variables necesarias*/
 	Sprite *tmp;
@@ -263,7 +263,7 @@ void Sprite::moverBala(Terminal *tablero){
 		tmp -> sprite[0][0].setY(y);
 
 		/*Evita que se salga de los limites del tablero*/
-		if(tmp -> combrobadorDeLimites(tablero)){
+		if(tmp -> combrobadorDeLimites(tablero) || tmp -> comprobadorDeColision(otro)){
 
 			/*La regresamos (Solo para evitar que borre los limites del tablero)*/
 			tmp -> sprite[0][0].setX(tmpX);
@@ -286,4 +286,88 @@ void Sprite::moverBala(Terminal *tablero){
 		this -> contenedor -> CursorNext();
 	}
 
+}
+
+bool Sprite::comprobadorDeColision(Sprite *otro){
+
+	/*Recorren al Sprite 1*/
+	for(int i = 0; i<this -> y; i++){
+		for(int j = 0; j< this -> x; j++){
+
+			/*Recorren al sprite 2*/
+			for(int k = 0; k< otro -> getY(); k++){
+				for(int l = 0; l< otro -> getX(); l++){
+
+					/*Ve si estan en las mismas coordenadas*/
+					if(this -> sprite[i][j].getX() == (otro -> getSprite())[k][l].getX()){
+						if(this -> sprite[i][j].getY() == (otro -> getSprite())[k][l].getY()){
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}	
+
+	return false;
+}
+
+/***************************************
+ *	Setters y getters
+ **************************************/
+
+void Sprite::setX(int x){
+	this -> x = x;
+}
+
+void Sprite::setY(int y){
+	this -> y = y;
+}
+
+void Sprite::setpX(int pX){
+	this -> pX = pX;
+}
+
+void Sprite::setpY(int pY){
+	this -> pY = pY;
+}
+
+void Sprite::setNombre(std::string nombre){
+	this -> nombre = nombre;
+}
+
+void Sprite::setDisparo(bool disparo){
+	this -> disparo = disparo;
+}
+
+void Sprite::setFlechas(bool flechas){
+	this -> flechas = flechas;
+}
+
+void Sprite::setIgnorar(char ignorar){
+	this -> ignorar = ignorar;
+}
+
+void Sprite::setFondo(char fondo){
+	this -> fondo = fondo;
+}
+
+void Sprite::setDireccion(char direccion){
+	this -> direc = direccion;
+}
+
+char Sprite::getDireccion(){
+	return this -> direc;
+}
+
+int Sprite::getX(){
+	return this -> x;
+}
+
+int Sprite::getY(){
+	return this -> y;
+}
+
+Pixel**Sprite::getSprite(){
+	return this -> sprite;
 }
