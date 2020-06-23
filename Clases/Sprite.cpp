@@ -124,41 +124,7 @@ void Sprite::mover(char Tecla,Terminal *tablero){
 	int tmpY = y;
 
 	/*Controles del Sprite*/
-	if(flechas){
-		switch(Tecla){
-			case ARRIBA:
-				y--;
-				break;
-			case IZQUIERDA:
-				x--;
-				break;
-			case ABAJO:
-				y++;
-				break;
-			case DERECHA:
-				x++;
-				break;
-		}		
-	}else{
-		switch(Tecla){
-			case 'w':
-			case 'W':
-				y--;
-				break;
-			case 'a': 
-			case 'A':
-				x--;
-				break;
-			case 's':
-			case 'S':
-				y++;
-				break;
-			case 'd': 
-			case 'D':
-				x++;
-				break;
-		}		
-	}
+	this -> movimiento(Tecla,&x,&y,false);
 
 
 	/*Actualiza la posición*/

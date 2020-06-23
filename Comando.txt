@@ -1,0 +1,1 @@
+g++ main.cpp Terminal\Terminal.cpp Clases\Controles.cpp Clases\Pixel.cpp Clases\Sprite.cpp -o main.exe

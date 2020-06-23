@@ -8,8 +8,8 @@
 int main(){
 
 	/*Main de pruebas*/
-	Terminal t(80,20,'-','|','Q');
-	Sprite jugador(3,3,2,2,"prueba",false);
+	Terminal t(50,10,'-','|','Q');
+	Sprite jugador(1,1,2,2,"prueba",false);
 	bool salida = true;
 	t.pintarLimites();
 

@@ -6,12 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include "Pixel.hpp"
-
-/**!<Definicioens de las flechas del techado*/
-#define ARRIBA 72
-#define IZQUIERDA 75
-#define DERECHA 77
-#define ABAJO 80
+#include "Controles.hpp"
 
 /**
  *@class Clase que carga a los personajes del juego
@@ -20,7 +15,7 @@
  *      Al momento de crearlos solo introducir el nombre del archivo por ejemplo
  *      prueba.txt al crear el objeto seria Sprite jugador(10,10,"prueba").
  */
-class Sprite{
+class Sprite : public Controles{
 	private:
 		/**!<Tamaño del Sprite en y*/
 		int y;
