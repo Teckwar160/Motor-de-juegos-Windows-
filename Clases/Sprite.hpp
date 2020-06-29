@@ -21,11 +21,8 @@
 class Sprite : public Controles{
 	private:
 
-		/*Tamaño del sprite en y*/
-		int y;
-
-		/*Tamaño del sprite en x*/
-		int x;
+		/*Tamaño del sprite*/
+		int n;
 
 		/*Tamaño del sprite*/
 		int tam;
@@ -79,12 +76,13 @@ class Sprite : public Controles{
 		 */
 		void convertidorDeR2aR();
 
+		void vuelta(Pixel &a, Pixel &b, Pixel &c, Pixel &d);
+
 	public:
 		/**
 		 *@brief Constructor de la clase.
-		 *
-		 *@param x Tamaño del Sprite en x.
-		 *@param y Tamaño del Sprite en y.
+		 *(Ojo los sprites siempre seran matrices cuadradas).
+		 *@param n Tamaño del Sprite.
 		 *@param pX Posición del primer pixel en x.
 		 *@param pY Posición del primer pixel en y.
 		 *@param nombre Nombre del archivo que contiene al sprite sin extensión.
@@ -94,7 +92,7 @@ class Sprite : public Controles{
 		 *cargar el sprite.
 		 *@param fondo Este es el caracter de fondo que sustituira a ignorar.
 		 */
-		Sprite(int x, int y, int pX, int pY, std::string nombre,bool disparo = false,bool flechas = true, char ignorar = '*', char fondo = ' ');
+		Sprite(int n, int pX, int pY, std::string nombre,bool disparo = false,bool flechas = true, char ignorar = '*', char fondo = ' ');
 
 		/**
 		 *@brief Contructor vacío para arreglos.
@@ -155,28 +153,9 @@ class Sprite : public Controles{
 		void cambio(std::string nombre);
 
 		/**
-		 *@brief Métdo que define el tamaño en x del sprite.
-		 *@param x Tamaño en x del sprite.
+		 *@brief Método que se encarga de rotar al sprite en sentido horario.
 		 */
-		void setX(int x);
-
-		/**
-		 *@brief Método que define el tamaño en y del sprite.
-		 *@param y Tamaño en y del sprite.
-		 */
-		void setY(int y);
-
-		/**
-		 *@brief Método que define la posición del sprite en x.
-		 *@param pX Posición en x del sprite.
-		 */
-		void setpX(int pX);
-
-		/**
-		 *@brief Método que define la posición del sprite en y.
-		 *@param pY Posición en y del sprite.
-		 */
-		void setpY(int pY);
+		void rotar();
 
 		/**
 		 *@brief Método que define el nombre del sprite.
@@ -218,16 +197,6 @@ class Sprite : public Controles{
 		 *@brief Método que regresara el sentido en el cual se mueven los objetos.
 		 */
 		char getDireccion();
-
-		/**
-		 *@brief Método que retorna el tamño en x del sprite.
-		 */
-		int getX();
-
-		/**
-		 *@brief Método que retorna en tamño en y del sprite.
-		 */
-		int getY();
 };
 
 #endif 

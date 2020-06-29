@@ -27,7 +27,7 @@ bool Sprite::combrobadorDeLimites(Terminal *tablero){
 
 void Sprite::cargadorDeSprite(std::string nombre){
 
-	this -> tam = x*y;
+	this -> tam = n*n;
 
 	/*dirección del sprite*/
 	std::string direccion = "Sprites\\"+ nombre + ".txt";
@@ -42,8 +42,8 @@ void Sprite::cargadorDeSprite(std::string nombre){
 
 
 	if(!sprite.fail()){
-		for(int i = 0; i<this -> y; i++){
-			for(int j = 0; j<this -> x; j++){
+		for(int i = 0; i<this -> n; i++){
+			for(int j = 0; j<this -> n; j++){
 				sprite >> tmp;
 				this -> molde[i][j].setPixel(tmp);  
 			}
@@ -55,8 +55,8 @@ void Sprite::cargadorDeSprite(std::string nombre){
 	sprite.close();
 
 	/*Ahora quitamos el fondo del sprite*/
-	for(int i = 0; i<this -> y; i++){
-		for(int j = 0; j<this -> x; j++){
+	for(int i = 0; i<this -> n; i++){
+		for(int j = 0; j<this -> n; j++){
 			if(this -> molde[i][j].getPixel() == this -> ignorar){
 				this -> tam-= 1;
 			}
@@ -69,8 +69,8 @@ void Sprite::convertidorDeR2aR(){
 	int k=0;
 
 	/*Pasamos de una matriz de R^2 a un vector de R*/
-	for(int i = 0; i<this -> y; i++){
-		for(int j = 0; j<this -> x; j++){
+	for(int i = 0; i<this -> n; i++){
+		for(int j = 0; j<this -> n; j++){
 			if(this -> molde[i][j].getPixel() != this -> ignorar){
 				this -> sprite[k].setPixel(this -> molde[i][j].getPixel());
 				this -> sprite[k].setX(this -> molde[i][j].getX());
@@ -81,15 +81,22 @@ void Sprite::convertidorDeR2aR(){
 	}
 }
 
+void Sprite::vuelta(Pixel &a, Pixel &b, Pixel &c, Pixel &d){
+      Pixel temp = a;
+      a = b;
+      b = c;
+      c = d;
+      d = temp;
+}
+
 /***************************************
  * 	Métodos publicos
  **************************************/
 
-Sprite::Sprite(int x, int y, int pX, int pY, std::string nombre, bool disparo, bool flechas, char ignorar, char fondo){
+Sprite::Sprite(int n, int pX, int pY, std::string nombre, bool disparo, bool flechas, char ignorar, char fondo){
 
 	/*Guardamos datos basicos*/
-	this -> x = x;
-	this -> y = y;
+	this -> n = n;
 	this -> nombre = nombre;
 	this -> disparo = disparo;
 	this -> flechas = flechas;
@@ -102,10 +109,10 @@ Sprite::Sprite(int x, int y, int pX, int pY, std::string nombre, bool disparo, b
 	}
 
 	/*Creamos al contenedor del Sprite*/
-	this -> molde = new Pixel*[this -> y];
+	this -> molde = new Pixel*[this -> n];
 
-	for(int i = 0; i<this -> y; i++){
-		this -> molde[i] = new Pixel[this -> x];
+	for(int i = 0; i<this -> n; i++){
+		this -> molde[i] = new Pixel[this -> n];
 	}	
 
 	/*Carga al sprite al molde*/
@@ -113,8 +120,8 @@ Sprite::Sprite(int x, int y, int pX, int pY, std::string nombre, bool disparo, b
 
 
 	/*Definimos las coordenadas de cada pixel*/
-	for(int i = 0; i<y; i++){
-		for(int j = 0; j<x; j++){
+	for(int i = 0; i<this -> n; i++){
+		for(int j = 0; j<this -> n; j++){
 			this -> molde[i][j].setX(pX +j);
 			this -> molde[i][j].setY(pY+i);
 		}
@@ -138,7 +145,7 @@ Sprite::Sprite(bool disparo,bool flechas, char ignorar, char fondo){
 Sprite::~Sprite(){
 
 	/*Liberamos la memoria del molde*/
-	for(int i = 0; i< y; i++){
+	for(int i = 0; i<this -> n; i++){
 		delete this -> molde[i];
 	}
 
@@ -232,7 +239,7 @@ void Sprite::disparar(Terminal *tablero, char direccion, char pDisparo){
 			this -> movimientoDeObjetos(&x,&y,direccion);
 
 			/*Creamos a la bala*/
-			Sprite *B = new Sprite(1,1,x,y,"Bala");
+			Sprite *B = new Sprite(1,x,y,"Bala");
 
 			/*Le damos una dirección*/
 			B -> setDireccion(direccion);
@@ -318,8 +325,8 @@ void Sprite::cambio(std::string nombre){
 	this -> cargadorDeSprite(nombre);
 
 	/*Definimos las coordenadas de cada pixel*/
-	for(int i = 0; i<y; i++){
-		for(int j = 0; j<x; j++){
+	for(int i = 0; i<this -> n; i++){
+		for(int j = 0; j<this -> n; j++){
 			this -> molde[i][j].setX(this -> sprite[0].getX() +j);
 			this -> molde[i][j].setY(this -> sprite[0].getY()+i);
 		}
@@ -331,6 +338,32 @@ void Sprite::cambio(std::string nombre){
 	this -> sprite = new Pixel[this -> tam];
 
 	this -> convertidorDeR2aR();
+}
+
+void Sprite::rotar(){
+
+	/*Rotamos el molde*/
+	for(int i=0; i<this -> n/2; i++){
+	      for(int j=0; j<(this -> n+1)/2; j++){
+	        vuelta(this -> molde[i][j], this -> molde[n-1-j][i], this -> molde[n-1-i][n-1-j], this -> molde[j][n-1-i]);	
+	      }
+	}
+
+	/*Definimos las coordenadas de cada pixel*/
+	for(int i = 0; i<this -> n; i++){
+		for(int j = 0; j<this -> n; j++){
+			this -> molde[i][j].setX(this -> sprite[0].getX() +j);
+			this -> molde[i][j].setY(this -> sprite[0].getY()+i);
+		}
+	}
+
+	delete[] this -> sprite;
+
+	/*Creamos el nuevo vector que contendra al sprite*/
+	this -> sprite = new Pixel[this -> tam];
+
+	this -> convertidorDeR2aR();
+
 }
 
 /***************************************

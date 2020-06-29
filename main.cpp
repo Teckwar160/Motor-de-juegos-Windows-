@@ -8,8 +8,8 @@
 int main(){
 	/*Main de pruebas*/
 	Terminal t(50,10);
-	Sprite jugador(3,3,2,2,"prueba",true);
-	Sprite muro(3,3,10,2,"muro");
+	Sprite jugador(3,2,2,"prueba",true);
+	Sprite muro(3,10,2,"muro");
 	bool salida = true;
 	t.pintarLimites();
 
@@ -37,7 +37,7 @@ int main(){
 			}
 
 			if(tecla == 'r'){
-				jugador.cambio("prueba");
+				jugador.rotar();
 			}
 			#endif
 		}
