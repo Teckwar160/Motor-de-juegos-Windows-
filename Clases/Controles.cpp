@@ -57,3 +57,41 @@ void Controles::movimientoDeObjetos(int *x, int *y, char direccion){
 			break;
 	}
 }
+
+void Controles::inversoDeMovimiento(char Tecla, int *x, int *y, bool flechas){
+	if(flechas){
+		switch(Tecla){
+			case ARRIBA:
+				this -> movimiento(ABAJO,x,y,flechas);
+				break;
+			case IZQUIERDA:
+				this -> movimiento(DERECHA,x,y,flechas);
+				break;
+			case ABAJO:
+				this -> movimiento(ARRIBA,x,y,flechas);
+				break;
+			case DERECHA:
+				this -> movimiento(IZQUIERDA,x,y,flechas);
+				break;
+		}
+	}else{
+		switch(Tecla){
+			case 'w':
+			case 'W':
+				this -> movimiento('s',x,y,flechas);
+				break;
+			case 'a':
+			case 'A':
+				this -> movimiento('d',x,y,flechas);
+				break;
+			case 's':
+			case 'S':
+				this -> movimiento('w',x,y,flechas);
+				break;
+			case 'd':
+			case 'D':
+				this -> movimiento('a',x,y,flechas);
+				break;
+		}
+	}
+}

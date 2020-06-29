@@ -20,17 +20,8 @@
  */
 class Sprite : public Controles{
 	private:
-		/**!<Tamaño del Sprite en y*/
-		int y;
-
-		/**!<Tamaño del Sprite en x*/
-		int x;
-
-		/**!<Posición del priemr pixel en y*/
-		int pY;
-
-		/**!<Posición del priemr pixel en x*/
-		int pX;
+		/*Tamaño del sprite*/
+		int tam;
 
 		/**!<Activa la opcón de disparar*/
 		bool disparo;
@@ -45,7 +36,7 @@ class Sprite : public Controles{
 		std::string nombre; 
 
 		/**!<Contenedor del sprite*/
-		Pixel **sprite;
+		Pixel *sprite;
 
 		/**!<Contenedor de las balas (Si es que quiere usar esta opción)*/
 		DLL<Sprite*> *contenedor;
@@ -58,12 +49,6 @@ class Sprite : public Controles{
 
 		/**!<Caracter de fondo del sprite*/
 		char fondo;
-
-		/**
-		 *@brief Métdodo que se encarga de borrar el rastro del Sprite.
-		 *@param tablero Tablero del jeugo.
-		 */
-		void borrar(Terminal *tablero);
 
 		/**
 		 *@brief Método que se encarga de ver que el sprite siga en el tablero.
@@ -111,11 +96,12 @@ class Sprite : public Controles{
 		~Sprite();
 
 		/**
-		 *@brief Método que muestra el sprite, unicamente se usa para ver si
-		 *se cargo bien el sprite, no usar al momento de correr su juego.
+		 *@brief Método que muestra o borra el sprite.
 		 *@param cursor Apuntador a un objeto terminal, solo para usar gotoxy.
+		 *@param borrar Cambia el modo del método se puede decir que cambia a la goma.
+		 *@param fondo Caracter con el cual se borrara al sprite.
 		 */
-		void mostrar(Terminal *cursor);
+		void pintar(Terminal *cursor, bool borrar = false);
 
 		/**
 		*@brief Método que se encarga de mover al Sprite.
@@ -223,7 +209,7 @@ class Sprite : public Controles{
 		/**
 		 *@brief Método que retorna el sprite del jugador(OJO solo usar dentro de Sprite nunca fuera de el)
 		 */
-		Pixel **getSprite();
+		Pixel *getSprite();
 };
 
 #endif 

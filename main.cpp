@@ -14,9 +14,8 @@ int main(){
 	bool salida = true;
 	t.pintarLimites();
 
-	Sprite arreglo[10];
-
-
+	//Sprite arreglo[10];
+	
 	while(salida){
 
 	t.ocultarCursor();
@@ -29,16 +28,18 @@ int main(){
 			if(tecla == 'c'){
 				salida = false;
 			}
-
+			#if 1
 			if(tecla == 'q'){
 				jugador.disparar(&t,DERECHA,'>');
 			}
+			#endif
 		}
-		jugador.mostrar(&t);
-		muro.mostrar(&t);
+
+		jugador.pintar(&t);
+		muro.pintar(&t);
 		jugador.moverBala(&t,&muro);
 
-		Sleep(10);
+		Sleep(20);
 	}
 	return 0;
 }
