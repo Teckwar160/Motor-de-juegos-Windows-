@@ -20,6 +20,13 @@
  */
 class Sprite : public Controles{
 	private:
+
+		/*Tamaño del sprite en y*/
+		int y;
+
+		/*Tamaño del sprite en x*/
+		int x;
+
 		/*Tamaño del sprite*/
 		int tam;
 
@@ -29,11 +36,11 @@ class Sprite : public Controles{
 		/**!<Activa las flechas del teclado para mover al personaje*/
 		bool flechas;
 
-		/**!<Dirección del Sprite*/
-		std::string direccion;
-
 		/**!<Nombre del Sprite*/
 		std::string nombre; 
+
+		/*!<Contenedor de la forma del sprite en bruto*/
+		Pixel **molde;
 
 		/**!<Contenedor del sprite*/
 		Pixel *sprite;
@@ -56,13 +63,21 @@ class Sprite : public Controles{
 		 */
 		bool combrobadorDeLimites(Terminal *tablero);
 
-
-
 		/**
-		 * @brief Método que libera la memoria de las balas.
-		 * @param B Bala que se liberara la memoria.
+		 *@brief Método que libera la memoria de las balas.
+		 *@param B Bala que se liberara la memoria.
 		 */
 		static void liberaBala(Sprite *B);
+
+		/**
+		 *@brief Método que se encarga de cargar al sprite
+		 */
+		void cargadorDeSprite(std::string nombre);
+
+		/**
+		 *@brief Método que convierte una matriz de nxm a un vector.
+		 */
+		void convertidorDeR2aR();
 
 	public:
 		/**
@@ -90,6 +105,7 @@ class Sprite : public Controles{
 		 *@param fondo Este es el caracter de fondo que sustituira a ignorar.
 		 */
 		Sprite(bool disparo = false,bool flechas = true, char ignorar = '*', char fondo = ' ');
+
 		/**
 		 *@brief Destructor de la clase
 		 */
@@ -130,6 +146,13 @@ class Sprite : public Controles{
 		 *@param otro Es el otro sprite que se estara analizando.
 		 */
 		bool comprobadorDeColision(Sprite *otro);
+
+		/**
+		 *@brief Método que cambia el diseño del sprite por otro que se desee.
+		 *(Ojo este nuevo sprite debe tener las mismas dimensiones que el original).
+		 *@param nombre Nombre del archivo donde esta el nuevo sprite.
+		 */
+		void cambio(std::string nombre);
 
 		/**
 		 *@brief Métdo que define el tamaño en x del sprite.
@@ -205,11 +228,6 @@ class Sprite : public Controles{
 		 *@brief Método que retorna en tamño en y del sprite.
 		 */
 		int getY();
-
-		/**
-		 *@brief Método que retorna el sprite del jugador(OJO solo usar dentro de Sprite nunca fuera de el)
-		 */
-		Pixel *getSprite();
 };
 
 #endif 

@@ -6,7 +6,6 @@
 #include <conio.h>
 
 int main(){
-
 	/*Main de pruebas*/
 	Terminal t(50,10);
 	Sprite jugador(3,3,2,2,"prueba",true);
@@ -31,6 +30,14 @@ int main(){
 			#if 1
 			if(tecla == 'q'){
 				jugador.disparar(&t,DERECHA,'>');
+			}
+
+			if(tecla == 'e'){
+				jugador.cambio("prueba2");
+			}
+
+			if(tecla == 'r'){
+				jugador.cambio("prueba");
 			}
 			#endif
 		}
